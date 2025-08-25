@@ -7,7 +7,9 @@ def arr(i : float = 0.0 ,j : float = 0.0 , n : int = 0) :
 
 
 
-def projectile(t : float = 0.01 , n : int = 50 , ax : float = 0.0 , ay : float = -9.8):
+def projectile(n : int = 50 , ax : float = 0.0 , ay : float = -9.8):
+
+    t = 1/n
 
     def arr(i ,j , n) : 
         v1 = np.zeros(n) ; v2 = np.zeros(n)
@@ -27,13 +29,19 @@ def projectile(t : float = 0.01 , n : int = 50 , ax : float = 0.0 , ay : float =
             v2[i+1] = v2[i] + ay * t
         return v2
     
-    def posit_x(x, vx):
+    def posit_x(x, vx , y):
         for i in range(len(x)-1):
+            if y[i] <= 0 :
+                x[i+1] = x[i]
+                break
             x[i+1] = x[i] + vx[i] * t
         return x
     
     def posit_y(y, vy):
         for i in range(len(y)-1):
+            if y[i] <= 0 :
+                y[i+1] = y[i]
+                break
             y[i+1] = y[i] + vy[i] * t
         return y
     
@@ -44,6 +52,8 @@ def projectile(t : float = 0.01 , n : int = 50 , ax : float = 0.0 , ay : float =
     vx , vy = arr(vx0 , vy0 , len(x))
 
     vx_cal = motion_vx(vx , ax) ; vy_cal = motion_vy(vy , ay)
-    x_upd = posit_x(x, vx_cal) ; y_upd = posit_y(y, vy_cal)
+    y_upd = posit_y(y, vy_cal)
+    x_upd = posit_x(x, vx_cal, y_upd)
 
     return x_upd , y_upd
+
