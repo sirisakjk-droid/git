@@ -57,3 +57,31 @@ def projectile(n : int = 50 , ax : float = 0.0 , ay : float = -9.8):
 
     return x_upd , y_upd
 
+
+def euler_method(f ,n ):
+    def input_initial():
+        x = map(float, input('define x0 : '))
+        y = map(float, input('define y0 : '))
+        return x
+    
+    def arr(i : float = 0.0 ,j : float = 0.0 , n : int = 0) : 
+        x = np.zeros(n) ; y = np.zeros(n)
+        x[0] = i ; y[0] = j
+        return x , y
+    
+    def deri(f, x , y ,h):
+        for i in range(n-1):
+            x[i+1] = x[i] + h
+            y[i+1] = y[i] + f(x[i], y[i]) * h
+        return x , y
+    
+    h = 1/ (n * 10)
+    x0 , y0 = input_initial()
+    x , y = arr(x0 , y0 , n)
+    dx , dydx = deri(f , x , y , h)
+    return dx , dydx
+            
+        
+
+def pendulum():
+    return
