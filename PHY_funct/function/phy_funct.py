@@ -81,7 +81,19 @@ def euler_method(f ,n : int ):
     dx , dydx = deri(f , x , y , h)
     return dx , dydx
             
-        
+def motion(x : np.array , x_dot : np.array):
+    t = 1 / (len(x))
+    for i in range(len(x)-1):
+        x[i+1] = x[i] + x_dot[i] * t
+    return x       
 
-def pendulum():
-    return
+def pendulum(n : int , l : float , g : float = 9.8):
+
+    def alpha(theta : np.array ,l : float ,g : float=9.8):
+        return (g / l) * np.sin(theta)
+    
+    theta , omega = arr(np.radians(float(input('θ0 : '))), float(input('ω0 : ')), n)
+    omega_cal = motion(omega , alpha(theta ,l ,g))
+    theta_cal = motion(theta , omega_cal)
+
+    return theta_cal , omega_cal
