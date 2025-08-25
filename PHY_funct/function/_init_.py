@@ -1,1 +1,1 @@
-from .pjt_funct import arr, projectile
+from .phy_funct import arr, projectile

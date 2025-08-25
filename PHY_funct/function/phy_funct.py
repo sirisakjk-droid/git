@@ -1,39 +1,30 @@
 import numpy as np
 
-'''
-'arr' use for define position in two-dimension
-as 'i' is initial condition of horizontal axis
-   'j' is initial condition of vertical axis
-   'n' is number of point
-'''
-
-def arr(i ,j , n) : 
+def arr(i : float = 0.0 ,j : float = 0.0 , n : int = 0) : 
     x = np.zeros(n) ; y = np.zeros(n)
     x[0] = i ; y[0] = j
     return x , y
 
 
 
-def projectile(t, n):
+def projectile(t : float = 0.01 , n : int = 50 , ax : float = 0.0 , ay : float = -9.8):
 
     def arr(i ,j , n) : 
         v1 = np.zeros(n) ; v2 = np.zeros(n)
         v1[0] = i ; v2[0] = j
         return v1 , v2
     
-    def motion_vx(v1):
+    def motion_vx(v1, ax):
 
         for i in range(len(v1)-1):
-            v1[i+1] = v1[i]
+            v1[i+1] = v1[i] + ax * t
 
         return v1
 
-    def motion_vy(v2):
-        def g():
-            return 9.8
+    def motion_vy(v2, ay):
         
         for i in range(len(v2)-1):
-            v2[i+1] = v2[i] + g() * t
+            v2[i+1] = v2[i] + ay * t
         return v2
     
     def posit_x(x, vx):
@@ -52,7 +43,7 @@ def projectile(t, n):
     x , y = arr(x0 , y0 , n)
     vx , vy = arr(vx0 , vy0 , len(x))
 
-    vx_cal = motion_vx(vx) ; vy_cal = motion_vy(vy)
+    vx_cal = motion_vx(vx , ax) ; vy_cal = motion_vy(vy , ay)
     x_upd = posit_x(x, vx_cal) ; y_upd = posit_y(y, vy_cal)
 
     return x_upd , y_upd
