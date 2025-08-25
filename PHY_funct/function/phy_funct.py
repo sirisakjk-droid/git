@@ -31,22 +31,22 @@ def projectile(n : int = 50 , ax : float = 0.0 , ay : float = -9.8):
     
     def posit_x(x, vx , y):
         for i in range(len(x)-1):
-            if y[i] <= 0 :
+            if y[i+1] <= 0 and i > 0:
                 x[i+1] = x[i]
-                break
-            x[i+1] = x[i] + vx[i] * t
+            else : 
+                x[i+1] = x[i] + vx[i] * t
         return x
     
     def posit_y(y, vy):
         for i in range(len(y)-1):
-            if y[i] <= 0 :
-                y[i+1] = y[i]
-                break
-            y[i+1] = y[i] + vy[i] * t
+            if y[i] <= 0 and i > 0 :
+                y[i+1] = y[i] = 0
+            else :
+                y[i+1] = y[i] + vy[i] * t
         return y
     
-    x0 , y0 = map(float, input('Inintial position (x y) : ').split())
-    vx0, vy0 = map(float, input('Inintial velocity (vx vy) : ').split())
+    x0 , y0 = map(float, input('Initial position (x y) : ').split())
+    vx0, vy0 = map(float, input('Initial velocity (vx vy) : ').split())
 
     x , y = arr(x0 , y0 , n)
     vx , vy = arr(vx0 , vy0 , len(x))
