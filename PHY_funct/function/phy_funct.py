@@ -58,11 +58,11 @@ def projectile(n : int = 50 , ax : float = 0.0 , ay : float = -9.8):
     return x_upd , y_upd
 
 
-def euler_method(f ,n ):
+def euler_method(f ,n : int ):
     def input_initial():
-        x = map(float, input('define x0 : '))
-        y = map(float, input('define y0 : '))
-        return x
+        x = float(input('define x0 : '))
+        y = float(input('define y0 : '))
+        return x , y
     
     def arr(i : float = 0.0 ,j : float = 0.0 , n : int = 0) : 
         x = np.zeros(n) ; y = np.zeros(n)
@@ -75,7 +75,7 @@ def euler_method(f ,n ):
             y[i+1] = y[i] + f(x[i], y[i]) * h
         return x , y
     
-    h = 1/ (n * 10)
+    h = 1/ n
     x0 , y0 = input_initial()
     x , y = arr(x0 , y0 , n)
     dx , dydx = deri(f , x , y , h)
